@@ -15,6 +15,7 @@ export const ApiPosts = () => {
         const fetchData = async () => {
             const response = await fetch("https://jsonplaceholder.typicode.com/posts");
             const data = await response.json();
+            setPosts(data);
             console.log(data);
         };
         fetchData();
@@ -23,6 +24,13 @@ export const ApiPosts = () => {
 
 
   return (
-    <div>ApiPosts</div>
+    <div>
+        <h2>ApiPosts</h2>
+        {
+            posts.map((post) => (
+                <p key={post.id}>{post.title}</p>
+            ))
+        }
+    </div>
   )
 }
