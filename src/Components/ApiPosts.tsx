@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import "./ApiPosts.css"
 
 type Post = {
     userId: number;
@@ -9,7 +10,7 @@ type Post = {
 
 
 export const ApiPosts = () => {
-    const [posts, setPosts] = useState<Post[]>([])
+    const [posts, setPosts] = useState<Post[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -24,13 +25,18 @@ export const ApiPosts = () => {
 
 
   return (
-    <div>
+    <div className='to'>
         <h2>ApiPosts</h2>
+        <div className='card'>
+
         {
             posts.map((post) => (
-                <p key={post.id}>{post.title}</p>
+                <div>
+                    <p key={post.id}>{post.title}</p>
+                </div>
             ))
         }
+        </div>
     </div>
   )
 }
