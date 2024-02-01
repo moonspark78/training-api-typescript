@@ -4,14 +4,10 @@ import "./ApiPokemons.css"
 
 type Pokemons = {
   name: string;
-  sprites: {
-    other: {
-      home: {
-        front_default: string;
-      };
-    };
-  };
+  url: string;
+  image: string;
 };
+
 
 export const ApiPokemons = () => {
   const [pokemons, setPokemons] = useState<Pokemons[]>([])
@@ -21,11 +17,29 @@ export const ApiPokemons = () => {
         const response = await fetch("https://pokeapi.co/api/v2/pokemon/");
         const data = await response.json();
         console.log(data.results);
-        setPokemons(data.results);
-        
-    };
+        setPokemons(data.results);       
+    
+        const pokemonDetails = await Promise.all(
+          data.results.map(async (pokemon: any) =>{
+            const pokeResponse = await fetch(pokemon.url)
+            const pokeData = await pokeResponse.json();
+            return {
+              name: pokemon.name,
+              url: pokemon.url,
+              image: pokeData.sprites.other.home.front_default,
+            }
+          })
+          );
+          setPokemons(pokemonDetails);
+          
+        }
+
+
+
     fetchData();
   },[]);
+
+
 
 
 
@@ -36,9 +50,10 @@ export const ApiPokemons = () => {
       <h2>ApiPokemons</h2>
       <div className='pokemonsCard'>
         {
-            pokemons.map((pokemon) => (
-              <div>
+            pokemons.map((pokemon, index) => (
+              <div key={index}>
                 <p>{pokemon.name}</p>
+                <img src={pokemon.image} alt='image_pokemon'/>
               </div>
             ))
         }
