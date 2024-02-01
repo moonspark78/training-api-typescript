@@ -1,0 +1,18 @@
+.pokemons{
+    text-align: center;
+}
+
+.pokemonsCard{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    justify-content: center;
+    gap: 10px;
+}
+
+.pokemonsCard div{
+    border-radius: 13px;
+    padding: 9px;
+    text-align: center;
+    margin: 0 10px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
