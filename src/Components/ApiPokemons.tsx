@@ -20,7 +20,7 @@ export const ApiPokemons = () => {
         setPokemons(data.results);       
     
         const pokemonDetails = await Promise.all(
-          data.results.map(async (pokemon: any) =>{
+          data.results.map(async (pokemon : Pokemons) =>{
             const pokeResponse = await fetch(pokemon.url)
             const pokeData = await pokeResponse.json();
             return {
@@ -48,6 +48,14 @@ export const ApiPokemons = () => {
   return (
     <div className='pokemons'>
       <h2>ApiPokemons</h2>
+      
+      <input 
+          placeholder="Searth the internet..." 
+          type="text" 
+          name="text" 
+          className="input"
+      />
+
       <div className='pokemonsCard'>
         {
             pokemons.map((pokemon, index) => (
